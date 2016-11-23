@@ -1,0 +1,16 @@
+a= np.array([[1,2],[5,6]],dtype=theano.config.floatX)
+b=np.array([5,6],dtype=theano.config.floatX)
+attention=[]
+x=[b,a]
+def similarity(x):
+    attention=[]
+    temp=0
+    p=[]
+    for i in x[1].T:
+        temp+=(np.sum((x[0] * i))) / ( np.sqrt(np.sum((x[0] * x[0]))) * (np.sqrt(np.sum( (i * i)) ) ))
+        attention.append((np.sum((x[0] * i))) / ( np.sqrt(np.sum((x[0] * x[0]))) * (np.sqrt(np.sum( (i * i)) ) )))
+    for i in attention:
+        p.append(i/temp)
+    return p*(x[1].sum(axis=0)),p
+ 
+print similarity(x)
